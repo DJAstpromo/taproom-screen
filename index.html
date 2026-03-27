@@ -7,7 +7,7 @@
 <style>
 body {
   margin: 0;
-  background: #1b1b1b;
+  background: #121212;
   font-family: Georgia, serif;
   color: #f5f1e6;
 }
@@ -18,92 +18,106 @@ body::before {
   position: fixed;
   width: 100%;
   height: 100%;
-  background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
-  opacity: 0.3;
+  background: url('https://www.transparenttextures.com/patterns/blackboard.png');
+  opacity: 0.35;
   z-index: -1;
 }
 
-/* Grid layout */
+/* Grid */
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(4, 1fr);
   height: 100vh;
-  gap: 12px;
-  padding: 12px;
+  gap: 14px;
+  padding: 14px;
 }
 
 /* Tile */
 .tile {
   position: relative;
-  background: rgba(0,0,0,0.75);
-  border-radius: 12px;
-  padding: 16px;
+  background: rgba(0,0,0,0.85);
+  border-radius: 10px;
+  padding: 18px;
   overflow: hidden;
 }
 
-/* Pump number */
+/* Pump */
 .pump {
   position: absolute;
-  top: 10px;
-  left: 12px;
-  font-size: 13px;
-  opacity: 0.6;
+  top: 12px;
+  left: 14px;
+  font-size: 12px;
+  opacity: 0.5;
   letter-spacing: 1px;
 }
 
-/* Beer name */
+/* Name */
 .name {
-  font-size: 26px;
+  font-size: 30px;
   font-weight: bold;
-  margin-top: 10px;
+  line-height: 1.1;
+  margin-top: 14px;
+  margin-bottom: 6px;
 }
 
 /* Brewery */
 .brewery {
   font-size: 15px;
-  opacity: 0.85;
+  opacity: 0.9;
+  margin-bottom: 4px;
 }
 
 /* ABV */
 .abv {
   font-size: 13px;
   opacity: 0.75;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 /* Description */
 .desc {
   font-size: 13px;
-  opacity: 0.8;
-  line-height: 1.3;
-  max-width: 70%;
+  line-height: 1.35;
+  opacity: 0.85;
+  max-width: 65%;
 }
 
 /* Price */
 .price {
   position: absolute;
-  bottom: 12px;
-  left: 16px;
-  font-size: 30px;
+  bottom: 14px;
+  left: 18px;
+  font-size: 34px;
   font-weight: bold;
   color: #d4af37;
+  letter-spacing: 1px;
 }
 
-/* Pint image */
+/* Pint */
 .pint {
   position: absolute;
-  right: 10px;
+  right: 12px;
   bottom: 10px;
-  max-height: 130px;
+  max-height: 150px;
 }
 
-/* Badge image */
+/* Badge */
 .badge {
   position: absolute;
-  right: 10px;
-  top: 10px;
-  max-height: 50px;
+  right: 12px;
+  top: 12px;
+  max-height: 55px;
+}
+
+/* Subtle chalk edge */
+.tile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  box-shadow: inset 0 0 30px rgba(255,255,255,0.03);
+  pointer-events: none;
 }
 </style>
 
@@ -123,7 +137,6 @@ async function loadMenu() {
   const grid = document.getElementById("grid");
   grid.innerHTML = "";
 
-  // Sort by position (important)
   data.sort((a,b) => Number(a.position) - Number(b.position));
 
   data.forEach(item => {
@@ -131,11 +144,11 @@ async function loadMenu() {
     grid.innerHTML += `
       <div class="tile"
         style="
-          border: ${item.border || '2px solid rgba(255,255,255,0.2)'};
-          box-shadow: 0 0 18px ${item.glow || 'transparent'};
+          border: ${item.border || '2px solid rgba(255,255,255,0.15)'};
+          box-shadow: 0 0 20px ${item.glow || 'transparent'};
         ">
 
-        <div class="pump">Pump ${item.pump || ""}</div>
+        <div class="pump">PUMP ${item.pump || ""}</div>
 
         <div class="name" style="color:${item.hex || '#f5f1e6'}">
           ${item.name || ""}
@@ -165,13 +178,8 @@ async function loadMenu() {
   });
 }
 
-// Load initially
 loadMenu();
-
-// Refresh every 15 minutes
 setInterval(loadMenu, 900000);
-
-// Hard refresh every 4 hours (stability)
 setInterval(() => location.reload(), 14400000);
 </script>
 
