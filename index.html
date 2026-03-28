@@ -112,10 +112,10 @@ body::before {
 /* Price */
 .price {
   position: absolute;
-  top: 60%;
+  top: 50%;
   left: 50%;
-  transform: translate(-40%, -50%);
-  font-size: 40px;
+  transform: translate(-45%, -50%);
+  font-size: 38px;
   font-weight: bold;
   color: #d4af37;
   letter-spacing: 1px;
@@ -198,9 +198,9 @@ async function loadMenu() {
           ${item.description || ""}
         </div>
 
-        <div class="price">
-          £${item.price || ""}
-        </div>
+       <div class="price" style="text-shadow: 0 0 10px ${item.glow || 'rgba(212,175,55,0.4)'};">
+  £${item.price || ""}
+</div>
 
         ${item.badge_image ? `<img class="badge" src="${item.badge_image}" />` : ""}
         ${item.pint_image ? `<img class="pint" src="${item.pint_image}" />` : ""}
