@@ -179,8 +179,9 @@ async function loadMenu() {
           box-shadow: 0 0 20px ${item.glow || 'transparent'};
         ">
 
-        <div class="pump">PUMP ${item.pump || ""}</div>
-
+        <div class="pump">
+  PUMP ${item.pump || ""}${item.colour ? " – " + item.colour : ""}
+</div>
         <div class="name">
   ${item.name || ""}
 </div>
