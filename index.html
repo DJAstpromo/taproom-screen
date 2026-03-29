@@ -90,8 +90,8 @@ body::before {
 .name {
   font-size: 28px;
   font-weight: bold;
-  color: #f5f1e6; /* chalk off-white */
-  text-shadow: 0 0 6px rgba(255,255,255,0.2);
+  color: #f5f1e6; /* chalk white */
+  text-shadow: 0 0 6px rgba(255,255,255,0.25);
   line-height: 1.1;
   margin-top: 0;
   margin-bottom: 6px;
@@ -191,9 +191,11 @@ async function loadMenu() {
 
         <div class="pump">
   PUMP ${item.pump || ""}${item.colour ? " – " + item.colour : ""}
-<div class="name" 
+<div class="name"
   style="
     font-family:${getFont(item.font)};
+    color:#f5f1e6;
+    text-shadow:0 0 6px rgba(255,255,255,0.25);
     ${getStyle(item.style)}
   ">
   ${item.name || ""}
