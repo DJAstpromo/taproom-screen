@@ -218,7 +218,22 @@ async function loadMenu() {
     `;
   });
 }
-
+function getFont(fontType) {
+  switch((fontType || "").toLowerCase()) {
+    case "caveat":
+      return "'Caveat', cursive";
+    case "amatic":
+      return "'Amatic SC', cursive";
+    case "impact":
+      return "Impact, sans-serif";
+    case "times":
+      return "'Times New Roman', serif";
+    case "lobster":
+      return "'Lobster', cursive";
+    default:
+      return "Georgia, serif";
+  }
+}
 loadMenu();
 setInterval(loadMenu, 900000);
 setInterval(() => location.reload(), 14400000);
