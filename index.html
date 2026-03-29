@@ -238,6 +238,25 @@ function getFont(fontType) {
       return "Georgia, serif";
   }
 }
+  function getStyle(styleType) {
+  switch((styleType || "").toLowerCase()) {
+
+    case "bold":
+      return "font-weight:700;";
+
+    case "italic":
+      return "font-style:italic;";
+
+    case "caps":
+      return "text-transform:uppercase; letter-spacing:1px;";
+
+    case "feature":
+      return "font-weight:700; text-shadow:0 0 10px rgba(255,255,255,0.4);";
+
+    default:
+      return "";
+  }
+}
 loadMenu();
 setInterval(loadMenu, 900000);
 setInterval(() => location.reload(), 14400000);
