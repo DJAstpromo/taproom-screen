@@ -191,8 +191,7 @@ async function loadMenu() {
 
         <div class="pump">
   PUMP ${item.pump || ""}${item.colour ? " – " + item.colour : ""}
-</div>
-        <div class="name">
+<div class="name" style="font-family:${getFont(item.font)};">
   ${item.name || ""}
 </div>
 
