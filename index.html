@@ -216,6 +216,7 @@ async function loadMenu() {
        <div class="price" style="text-shadow: 0 0 10px ${item.glow || 'rgba(212,175,55,0.4)'};">
   £${item.price || ""}
 </div>
+<div class="name ${getFontClass(item.font)} ${getStyleClass(item.style)}">
 
         ${item.badge_image ? `<img class="badge" src="${item.badge_image}" />` : ""}
         ${item.pint_image ? `<img class="pint" src="${item.pint_image}" />` : ""}
