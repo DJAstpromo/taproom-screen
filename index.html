@@ -209,56 +209,7 @@ body::before {
 <script>
 const url = "https://opensheet.elk.sh/1G6yyID0GjI7G4T5U_lYQl_WdiYklZ0HaGz9hofafGB4/Screen";
 
-async function loadMenu() {
-  const res = await fetch(url);
-  const data = await res.json();
-
-  const grid = document.getElementById("grid");
-  grid.innerHTML = "";
-
-  data.sort((a,b) => Number(a.position) - Number(b.position));
-
-data.forEach(item => {
-
-  grid.innerHTML += `
-    <div class="tile"
-      style="
-        border: ${item.border || '2px solid rgba(255,255,255,0.15)'};
-        box-shadow: 0 0 20px ${item.glow || 'transparent'};
-      ">
-
-      <div class="pump">
-        PUMP ${item.pump || ""}${item.colour ? " – " + item.colour : ""}
-      </div>
-
-      <div class="name ${getFontClass(item.font)} ${getStyleClass(item.style)}">
-        ${item.name || ""}
-      </div>
-
-      <div class="brewery">
-        ${item.brewery || ""}
-      </div>
-
-      <div class="abv">
-        ${item.abv ? item.abv + '% ABV' : ""}
-      </div>
-
-      <div class="desc">
-        ${item.description || ""}
-      </div>
-
-      <div class="price" style="text-shadow: 0 0 10px ${item.glow || 'rgba(212,175,55,0.4)'};">
-        £${item.price || ""}
-      </div>
-
-      ${item.badge_image ? `<img class="badge" src="${item.badge_image}" />` : ""}
-      ${item.pint_image ? `<img class="pint" src="${item.pint_image}" />` : ""}
-
-    </div>
-  `;
-
-});
-  function getFontClass(font) {
+function getFontClass(font) {
   switch((font || "").toLowerCase()) {
     case "caveat": return "font-caveat";
     case "amatic": return "font-amatic";
@@ -278,6 +229,58 @@ function getStyleClass(style) {
     default: return "";
   }
 }
+
+async function loadMenu() {
+  const res = await fetch(url);
+  const data = await res.json();
+
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
+
+  data.sort((a,b) => Number(a.position) - Number(b.position));
+
+  data.forEach(item => {
+
+    grid.innerHTML += `
+      <div class="tile"
+        style="
+          border: ${item.border || '2px solid rgba(255,255,255,0.15)'};
+          box-shadow: 0 0 20px ${item.glow || 'transparent'};
+        ">
+
+        <div class="pump">
+          PUMP ${item.pump || ""}${item.colour ? " – " + item.colour : ""}
+        </div>
+
+        <div class="name ${getFontClass(item.font)} ${getStyleClass(item.style)}">
+          ${item.name || ""}
+        </div>
+
+        <div class="brewery">
+          ${item.brewery || ""}
+        </div>
+
+        <div class="abv">
+          ${item.abv ? item.abv + '% ABV' : ""}
+        </div>
+
+        <div class="desc">
+          ${item.description || ""}
+        </div>
+
+        <div class="price" style="text-shadow: 0 0 10px ${item.glow || 'rgba(212,175,55,0.4)'};">
+          £${item.price || ""}
+        </div>
+
+        ${item.badge_image ? `<img class="badge" src="${item.badge_image}" />` : ""}
+        ${item.pint_image ? `<img class="pint" src="${item.pint_image}" />` : ""}
+
+      </div>
+    `;
+
+  });
+}
+
 loadMenu();
 setInterval(loadMenu, 900000);
 setInterval(() => location.reload(), 14400000);
