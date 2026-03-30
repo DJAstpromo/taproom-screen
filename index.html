@@ -263,6 +263,26 @@ async function loadMenu() {
     `;
   });
 }
+  function getFontClass(font) {
+  switch((font || "").toLowerCase()) {
+    case "caveat": return "font-caveat";
+    case "amatic": return "font-amatic";
+    case "impact": return "font-impact";
+    case "times": return "font-times";
+    case "lobster": return "font-lobster";
+    default: return "";
+  }
+}
+
+function getStyleClass(style) {
+  switch((style || "").toLowerCase()) {
+    case "bold": return "style-bold";
+    case "italic": return "style-italic";
+    case "caps": return "style-caps";
+    case "feature": return "style-feature";
+    default: return "";
+  }
+}
 function getFont(fontType) {
   switch((fontType || "").toLowerCase()) {
     case "caveat":
