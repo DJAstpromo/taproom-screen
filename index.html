@@ -283,40 +283,6 @@ function getStyleClass(style) {
     default: return "";
   }
 }
-function getFont(fontType) {
-  switch((fontType || "").toLowerCase()) {
-    case "caveat":
-      return "'Caveat', cursive";
-    case "amatic":
-      return "'Amatic SC', cursive";
-    case "impact":
-      return "Impact, sans-serif";
-    case "times":
-      return "'Times New Roman', serif";
-    case "lobster":
-      return "'Lobster', cursive";
-    default:
-      return "Georgia, serif";
-  }
-}
-  function getStyle(styleType) {
-  switch((styleType || "").toLowerCase()) {
-
-    case "bold":
-      return "font-weight:700;";
-
-    case "italic":
-      return "font-style:italic;";
-
-    case "caps":
-      return "text-transform:uppercase; letter-spacing:1px;";
-
-    case "feature":
-      return "font-weight:700; text-shadow:0 0 10px rgba(255,255,255,0.4);";
-
-    default:
-      return "";
-  }
 }
 loadMenu();
 setInterval(loadMenu, 900000);
