@@ -221,14 +221,44 @@ async function loadMenu() {
   data.forEach(item => {
 
     grid.innerHTML += `
-      <div class="tile"
-        style="
-          border: ${item.border || '2px solid rgba(255,255,255,0.15)'};
-          box-shadow: 0 0 20px ${item.glow || 'transparent'};
-        ">
+  <div class="tile"
+    style="
+      border: ${item.border || '2px solid rgba(255,255,255,0.15)'};
+      box-shadow: 0 0 20px ${item.glow || 'transparent'};
+    ">
 
+    <div class="pump">
+      PUMP ${item.pump || ""}${item.colour ? " – " + item.colour : ""}
+    </div>
+
+    <div class="name ${getFontClass(item.font)} ${getStyleClass(item.style)}">
+      ${item.name || ""}
+    </div>
+
+    <div class="brewery">
+      ${item.brewery || ""}
+    </div>
+
+    <div class="abv">
+      ${item.abv ? item.abv + '% ABV' : ""}
+    </div>
+
+    <div class="desc">
+      ${item.description || ""}
+    </div>
+
+    <div class="price" style="text-shadow: 0 0 10px ${item.glow || 'rgba(212,175,55,0.4)'};">
+      £${item.price || ""}
+    </div>
+
+    ${item.badge_image ? `<img class="badge" src="${item.badge_image}" />` : ""}
+    ${item.pint_image ? `<img class="pint" src="${item.pint_image}" />` : ""}
+
+  </div>
+`;
         <div class="pump">
   PUMP ${item.pump || ""}${item.colour ? " – " + item.colour : ""}
+  
 <div class="name ${getFontClass(item.font)} ${getStyleClass(item.style)}">
   ${item.name || ""}
 </div>
@@ -248,7 +278,6 @@ async function loadMenu() {
        <div class="price" style="text-shadow: 0 0 10px ${item.glow || 'rgba(212,175,55,0.4)'};">
   £${item.price || ""}
 </div>
-<div class="name ${getFontClass(item.font)} ${getStyleClass(item.style)}">
 
         ${item.badge_image ? `<img class="badge" src="${item.badge_image}" />` : ""}
         ${item.pint_image ? `<img class="pint" src="${item.pint_image}" />` : ""}
@@ -276,7 +305,6 @@ function getStyleClass(style) {
     case "feature": return "style-feature";
     default: return "";
   }
-}
 }
 loadMenu();
 setInterval(loadMenu, 900000);
