@@ -2,288 +2,50 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Taproom Screen</title>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Amatic+SC:wght@700&family=Lobster&display=swap" rel="stylesheet">
+<title>Taproom Display Selector</title>
+
 <style>
-  /* OUTER FRAME (wood border) */
-.frame {
-  width: 100vw;
-  height: 100vh;
-  background: linear-gradient(
-    135deg,
-    #6b4f2a,
-    #4a3218
-  );
-  box-shadow:
-    inset 0 0 60px rgba(0,0,0,0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* INNER SCREEN AREA */
-.screen {
-  width: 92%;
-  height: 92%;
-  margin: auto;
-  background: #121212;
-  box-shadow:
-    inset 0 0 40px rgba(0,0,0,0.8),
-    0 0 20px rgba(0,0,0,0.6);
-  border-radius: 8px;
-  overflow: hidden;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 body {
-  margin: 0;
   background: #121212;
+  color: #f5f1e6;
   font-family: Georgia, serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  text-align: center;
+}
+
+a {
+  display: block;
+  margin: 20px;
+  padding: 20px 40px;
+  background: #1e1e1e;
   color: #f5f1e6;
-}
-/* existing styles continue below */
-/* Chalkboard texture */
-body::before {
-  content: "";
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: url('https://www.transparenttextures.com/patterns/blackboard.png');
-  opacity: 0.35;
-  z-index: -1;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 22px;
+  transition: 0.2s;
 }
 
-/* Grid */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-
-  width: 96%;
-  height: 96%;
-
-  gap: 14px;
-}
-
-/* Tile */
-.tile {
-  position: relative;
-  background: rgba(0,0,0,0.85);
-  border-radius: 10px;
-  padding: 8px;
-  overflow: hidden;
-}
-
-/* Pump */
-.pump {
-  top: 2px;
-  left: 18px;
-  font-size: 16px;
-  opacity: 0.5;
-  letter-spacing: 1px;
-  margin-bottom: 3px;
-}
-
-/* Name */
-.name {
-  font-size: 28px;
-  font-weight: bold;
-  color: #f5f1e6;
-  text-shadow: 0 0 6px rgba(255,255,255,0.25);
-  line-height: 1.1;
-  margin-top: 0;
-  margin-bottom: 6px;
-}
-
-/* Brewery */
-.brewery {
-  font-size: 20px;
-  opacity: 0.9;
-  margin-bottom: 6px;
-}
-
-/* ABV */
-.abv {
-  font-size: 20px;
-  opacity: 0.75;
-  margin-bottom: 6px;
-}
-
-/* Description */
-.desc {
-  font-size: 16px;
-  line-height: 1.35;
-  opacity: 0.85;
-  max-width: 65%;
-}
-
-/* Price */
-.price {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-35%, -40%);
-  font-size: 34px;
-  font-weight: bold;
-  color: #d4af37;
-  letter-spacing: 1px;
-}
-
-/* Pint */
-.pint {
-  position: absolute;
-  right: 12px;
-  bottom: 10px;
-  height: 120px;
-}
-
-/* Badge */
-.badge {
-  position: absolute;
-  right: 80px;
-  top: 12px;
-  max-height: 45px;
-}
-
-/* Subtle chalk edge */
-.tile::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 10px;
-  box-shadow: inset 0 0 30px rgba(255,255,255,0.03);
-  pointer-events: none;
-}
-  /* FONT CLASSES */
-.font-caveat {
-  font-family: 'Caveat', cursive;
-}
-
-.font-amatic {
-  font-family: 'Amatic SC', cursive;
-}
-
-.font-impact {
-  font-family: Impact, sans-serif;
-}
-
-.font-times {
-  font-family: 'Times New Roman', serif;
-}
-
-.font-lobster {
-  font-family: 'Lobster', cursive;
-}
-  /* STYLE CLASSES */
-.style-bold {
-  font-weight: 700;
-}
-
-.style-italic {
-  font-style: italic;
-}
-
-.style-caps {
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.style-feature {
-  font-weight: 700;
-  text-shadow: 0 0 10px rgba(255,255,255,0.4);
+a:hover {
+  background: #333;
 }
 </style>
-
 </head>
 
 <body>
 
-<div class="frame">
-  <div class="screen">
-    <div class="grid" id="grid"></div>
-  </div>
+<div class="container">
+  <h1>Taproom Display</h1>
+
+  <a href="rustic.html">Rustic Chalkboard Display</a>
+  <a href="modern.html">Modern Digital Display</a>
 </div>
-<script>
-const url = "https://opensheet.elk.sh/1G6yyID0GjI7G4T5U_lYQl_WdiYklZ0HaGz9hofafGB4/Screen";
-
-function getFontClass(font) {
-  switch((font || "").toLowerCase()) {
-    case "caveat": return "font-caveat";
-    case "amatic": return "font-amatic";
-    case "impact": return "font-impact";
-    case "times": return "font-times";
-    case "lobster": return "font-lobster";
-    default: return "";
-  }
-}
-
-function getStyleClass(style) {
-  switch((style || "").toLowerCase()) {
-    case "bold": return "style-bold";
-    case "italic": return "style-italic";
-    case "caps": return "style-caps";
-    case "feature": return "style-feature";
-    default: return "";
-  }
-}
-
-async function loadMenu() {
-  const res = await fetch(url);
-  const data = await res.json();
-
-  const grid = document.getElementById("grid");
-  grid.innerHTML = "";
-
-  data.sort((a,b) => Number(a.position) - Number(b.position));
-
-  data.forEach(item => {
-
-    grid.innerHTML += `
-      <div class="tile"
-        style="
-          border: ${item.border || '2px solid rgba(255,255,255,0.15)'};
-          box-shadow: 0 0 20px ${item.glow || 'transparent'};
-        ">
-
-        <div class="pump">
-          PUMP ${item.pump || ""}${item.colour ? " – " + item.colour : ""}
-        </div>
-
-        <div class="name ${getFontClass(item.font)} ${getStyleClass(item.style)}">
-          ${item.name || ""}
-        </div>
-
-        <div class="brewery">
-          ${item.brewery || ""}
-        </div>
-
-        <div class="abv">
-          ${item.abv ? item.abv + '% ABV' : ""}
-        </div>
-
-        <div class="desc">
-          ${item.description || ""}
-        </div>
-
-        <div class="price" style="text-shadow: 0 0 10px ${item.glow || 'rgba(212,175,55,0.4)'};">
-          £${item.price || ""}
-        </div>
-
-        ${item.badge_image ? `<img class="badge" src="${item.badge_image}" />` : ""}
-        ${item.pint_image ? `<img class="pint" src="${item.pint_image}" />` : ""}
-
-      </div>
-    `;
-
-  });
-}
-
-loadMenu();
-setInterval(loadMenu, 900000);
-setInterval(() => location.reload(), 14400000);
-</script>
 
 </body>
 </html>
