@@ -96,7 +96,7 @@ body::before {
     url('https://www.transparenttextures.com/patterns/wood-pattern.png'),
     linear-gradient(145deg, #7a5a32, #4e341a);
 
-  opacity: 0.95;
+  opacity: 0.75; /* Increased opacity for better color visibility */
   padding: 6px;
 
   -webkit-mask:
@@ -113,10 +113,9 @@ body::before {
 .tile:nth-child(even) { transform: rotate(0.3deg); }
 
 /* ===== TEXT ===== */
-
 .pump {
   font-size: 14px;
-  opacity: 0.6;
+  opacity: 0.8;
   margin-bottom: 4px;
   letter-spacing: 1px;
 }
@@ -124,11 +123,9 @@ body::before {
 .name {
   font-size: 30px;
   color: #f5f1e6;
-
   text-shadow:
     0 0 2px rgba(255,255,255,0.4),
     0 0 6px rgba(255,255,255,0.2);
-
   margin-bottom: 6px;
 }
 
@@ -161,6 +158,7 @@ body::before {
   font-weight: bold;
   color: #d4af37;
   letter-spacing: 1px;
+  text-shadow: 0 0 12px rgba(212,175,55,0.8), 0 0 20px rgba(212,175,55,0.6);
 }
 
 /* ===== IMAGES ===== */
@@ -245,7 +243,7 @@ async function loadMenu() {
   data.forEach(item => {
 
     grid.innerHTML += `
-      <div class="tile" style="box-shadow: 0 0 20px ${item.glow || 'transparent'};">
+      <div class="tile" style="box-shadow: 0 0 18px ${item.glow || 'transparent'}, inset 0 0 30px ${item.glow || 'transparent'};">
 
         <div class="pump">
           PUMP ${item.pump || ""}${item.colour ? " – " + item.colour : ""}
@@ -262,7 +260,7 @@ async function loadMenu() {
         <div class="desc">${item.description || ""}</div>
 
         <div class="price"
-          style="text-shadow: 0 0 12px ${item.glow || 'rgba(212,175,55,0.4)'};">
+          style="text-shadow: 0 0 12px rgba(212,175,55,0.8), 0 0 20px rgba(212,175,55,0.6);">
           £${item.price || ""}
         </div>
 
