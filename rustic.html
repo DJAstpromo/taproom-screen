@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Taproom Screen</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Amatic+SC:wght@700&family=Lobster&display=swap" rel="stylesheet">
+
+<style>
+
+/* ===== BODY ===== */
+body {
+  margin: 0;
+  background: #181512;
+  font-family: Georgia, serif;
+  color: #f5f1e6;
+}
+
+/* Chalk texture */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url('https://www.transparenttextures.com/patterns/blackboard.png');
+  opacity: 0.25;
+  z-index: -1;
+}
+
+/* ===== FRAME ===== */
+.frame {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background:
+    url('https://www.transparenttextures.com/patterns/wood-pattern.png'),
+    linear-gradient(135deg, #6b4f2a, #3e2a15);
+
+  box-shadow:
+    inset 0 0 80px rgba(0,0,0,0.8),
+    inset 0 0 20px rgba(0,0,0,0.6);
+}
+
+/* ===== SCREEN ===== */
+.screen {
+  width: 94%;
+  height: 94%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #121212;
+  border-radius: 10px;
+
+  box-shadow:
+    inset 0 0 60px rgba(0,0,0,0.9),
+    0 0 30px rgba(0,0,0,0.8);
+}
+
+/* ===== GRID ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  width: 96%;
+  height: 96%;
+  gap: 16px;
+}
+
+/* ===== TILE ===== */
+.tile {
+  position: relative;
+  border-radius: 8px;
+  padding: 14px;
+  overflow: hidden;
+
+  /* chalkboard centre */
+  background: rgba(0,0,0,0.88);
+
+  /* depth */
+  box-shadow:
+    inset 0 0 30px rgba(0,0,0,0.9),
+    0 4px 10px rgba(0,0,0,0.6);
+}
+
+/* ===== WOOD FRAME AROUND TILE ===== */
+.tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+
+  background:
+    url('https://www.transparenttextures.com/patterns/wood-pattern.png'),
+    linear-gradient(145deg, #7a5a32, #4e341a);
+
+  opacity: 0.95;
+  padding: 6px;
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+
+  pointer-events: none;
+}
+
+/* subtle imperfections */
+.tile:nth-child(odd) { transform: rotate(-0.3deg); }
+.tile:nth-child(even) { transform: rotate(0.3deg); }
+
+/* ===== TEXT ===== */
+
+.pump {
+  font-size: 14px;
+  opacity: 0.6;
+  margin-bottom: 4px;
+  letter-spacing: 1px;
+}
+
+.name {
+  font-size: 30px;
+  color: #f5f1e6;
+
+  text-shadow:
+    0 0 2px rgba(255,255,255,0.4),
+    0 0 6px rgba(255,255,255,0.2);
+
+  margin-bottom: 6px;
+}
+
+.brewery {
+  font-size: 18px;
+  opacity: 0.9;
+  margin-bottom: 4px;
+}
+
+.abv {
+  font-size: 16px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+
+.desc {
+  font-size: 14px;
+  opacity: 0.85;
+  max-width: 65%;
+  line-height: 1.4;
+}
+
+/* ===== PRICE ===== */
+.price {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-35%, -50%);
+  font-size: 34px;
+  font-weight: bold;
+  color: #d4af37;
+  letter-spacing: 1px;
+}
+
+/* ===== IMAGES ===== */
+.pint {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  height: 120px;
+}
+
+.badge {
+  position: absolute;
+  right: 80px;
+  top: 12px;
+  max-height: 45px;
+}
+
+/* ===== FONT CLASSES ===== */
+.font-caveat { font-family: 'Caveat', cursive; }
+.font-amatic { font-family: 'Amatic SC', cursive; }
+.font-impact { font-family: Impact, sans-serif; }
+.font-times { font-family: 'Times New Roman', serif; }
+.font-lobster { font-family: 'Lobster', cursive; }
+
+/* ===== STYLE CLASSES ===== */
+.style-bold { font-weight: 700; }
+.style-italic { font-style: italic; }
+.style-caps { text-transform: uppercase; letter-spacing: 1px; }
+.style-feature {
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(255,255,255,0.4);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="frame">
+  <div class="screen">
+    <div class="grid" id="grid"></div>
+  </div>
+</div>
+
+<script>
+
+const url = "https://opensheet.elk.sh/1G6yyID0GjI7G4T5U_lYQl_WdiYklZ0HaGz9hofafGB4/Screen";
+
+/* FONT MAPPING */
+function getFontClass(font) {
+  switch((font || "").toLowerCase()) {
+    case "caveat": return "font-caveat";
+    case "amatic": return "font-amatic";
+    case "impact": return "font-impact";
+    case "times": return "font-times";
+    case "lobster": return "font-lobster";
+    default: return "";
+  }
+}
+
+/* STYLE MAPPING */
+function getStyleClass(style) {
+  switch((style || "").toLowerCase()) {
+    case "bold": return "style-bold";
+    case "italic": return "style-italic";
+    case "caps": return "style-caps";
+    case "feature": return "style-feature";
+    default: return "";
+  }
+}
+
+/* LOAD DATA */
+async function loadMenu() {
+  const res = await fetch(url);
+  const data = await res.json();
+
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
+
+  data.sort((a,b) => Number(a.position) - Number(b.position));
+
+  data.forEach(item => {
+
+    grid.innerHTML += `
+      <div class="tile" style="box-shadow: 0 0 20px ${item.glow || 'transparent'};">
+
+        <div class="pump">
+          PUMP ${item.pump || ""}${item.colour ? " – " + item.colour : ""}
+        </div>
+
+        <div class="name ${getFontClass(item.font)} ${getStyleClass(item.style)}">
+          ${item.name || ""}
+        </div>
+
+        <div class="brewery">${item.brewery || ""}</div>
+
+        <div class="abv">${item.abv ? item.abv + '% ABV' : ""}</div>
+
+        <div class="desc">${item.description || ""}</div>
+
+        <div class="price"
+          style="text-shadow: 0 0 12px ${item.glow || 'rgba(212,175,55,0.4)'};">
+          £${item.price || ""}
+        </div>
+
+        ${item.badge_image ? `<img class="badge" src="${item.badge_image}" />` : ""}
+        ${item.pint_image ? `<img class="pint" src="${item.pint_image}" />` : ""}
+
+      </div>
+    `;
+  });
+}
+
+loadMenu();
+setInterval(loadMenu, 900000);
+setInterval(() => location.reload(), 14400000);
+
+</script>
+
+</body>
+</html>
